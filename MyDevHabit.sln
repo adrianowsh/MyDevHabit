@@ -21,6 +21,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3965EB1C-3CD7-4AE0-BEF5-D446D453DF98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{A61D3C86-3C20-4ABE-8FFF-4BE089DC3BFA}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\MyDevHabit.yaml = .github\workflows\MyDevHabit.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +49,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7FA40107-B7CC-4D8E-A072-A9C001096A3A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{060D7D51-7EEF-4924-A911-30E87BDDE361} = {7FA40107-B7CC-4D8E-A072-A9C001096A3A}
+		{A61D3C86-3C20-4ABE-8FFF-4BE089DC3BFA} = {3965EB1C-3CD7-4AE0-BEF5-D446D453DF98}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {69BA82CA-7064-4090-AE64-63958DCB9042}
