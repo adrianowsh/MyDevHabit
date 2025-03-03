@@ -1,4 +1,4 @@
-name: Build
+name: MyDevHabit
 
 on:
   workflow_dispatch:
@@ -9,13 +9,10 @@ on:
 env:
   DOTNET_VERSION: "9.x"
   SOLUTION_PATH: "./MyDevHabit.sln"
- 
-  
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
 
     steps:
       - uses: actions/checkout@v4

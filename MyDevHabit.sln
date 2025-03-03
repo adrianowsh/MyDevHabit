@@ -11,13 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{7FA40107-B7C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDevHabit.Api", "src\MyDevHabit.Api\MyDevHabit.Api.csproj", "{060D7D51-7EEF-4924-A911-30E87BDDE361}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".gijthub", ".gijthub", "{030A0E8C-7403-46A1-B1E4-40C0FFA1418C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{9A47C145-7BE4-45FB-8590-DD2EC14BE64D}"
-	ProjectSection(SolutionItems) = preProject
-		Build.yaml = Build.yaml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -49,7 +42,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7FA40107-B7CC-4D8E-A072-A9C001096A3A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{060D7D51-7EEF-4924-A911-30E87BDDE361} = {7FA40107-B7CC-4D8E-A072-A9C001096A3A}
-		{9A47C145-7BE4-45FB-8590-DD2EC14BE64D} = {030A0E8C-7403-46A1-B1E4-40C0FFA1418C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {69BA82CA-7064-4090-AE64-63958DCB9042}
