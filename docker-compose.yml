@@ -14,6 +14,18 @@ services:
       # Aspire Dashboard
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://mydevhabit.aspire-dashboard:18889
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+  
+  mydevhabit.db:
+    image: postgres:latest
+    container_name: MyBookify.Db
+    environment:
+      - POSTGRES_DB=mybookify
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
   mydevhabit.seq:
     image: datalust/seq:2024.3 # or latest
