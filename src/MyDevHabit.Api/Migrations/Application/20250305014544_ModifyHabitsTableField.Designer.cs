@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyDevHabit.Api.Database;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyDevHabit.Api.Migrations.Application
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250305014544_ModifyHabitsTableField")]
+    partial class ModifyHabitsTableField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,6 +46,10 @@ namespace MyDevHabit.Api.Migrations.Application
                         .HasColumnType("date")
                         .HasColumnName("end_date");
 
+                    b.Property<int>("HabitStatus")
+                        .HasColumnType("integer")
+                        .HasColumnName("habit_status");
+
                     b.Property<bool>("IsArchived")
                         .HasColumnType("boolean")
                         .HasColumnName("is_archived");
@@ -56,10 +63,6 @@ namespace MyDevHabit.Api.Migrations.Application
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("name");
-
-                    b.Property<int?>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer")
@@ -83,13 +86,13 @@ namespace MyDevHabit.Api.Migrations.Application
                                 .HasColumnType("character varying(500)")
                                 .HasColumnName("id");
 
+                            b1.Property<int>("FrequencyType")
+                                .HasColumnType("integer")
+                                .HasColumnName("frequency_frequency_type");
+
                             b1.Property<int>("TimesPerPeriod")
                                 .HasColumnType("integer")
                                 .HasColumnName("frequency_times_per_period");
-
-                            b1.Property<int>("Type")
-                                .HasColumnType("integer")
-                                .HasColumnName("frequency_type");
 
                             b1.HasKey("HabitId");
 

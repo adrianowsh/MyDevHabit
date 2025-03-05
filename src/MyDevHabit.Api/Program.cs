@@ -10,6 +10,12 @@ using OpenTelemetry.Trace;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers(options =>
+{
+    options.ReturnHttpNotAcceptable = true;
+});
+
+
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();

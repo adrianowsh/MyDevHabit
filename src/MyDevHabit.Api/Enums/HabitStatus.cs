@@ -1,6 +1,6 @@
 ﻿namespace MyDevHabit.Api.Enums;
 
-internal enum HabitStatus
+public enum HabitStatus
 {
     None = 0,
     Ongoing = 1,

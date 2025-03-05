@@ -1,6 +1,6 @@
 ﻿namespace MyDevHabit.Api.Enums;
 
-internal enum FrequencyType
+public enum FrequencyType
 {
     None = 0,
     Daily = 1,

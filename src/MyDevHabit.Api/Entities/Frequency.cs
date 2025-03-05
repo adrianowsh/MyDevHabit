@@ -2,9 +2,9 @@
 
 namespace MyDevHabit.Api.Entities;
 
-internal sealed class Frequency
+public sealed class Frequency
 {
-    public FrequencyType FrequencyType { get; set; }
+    public FrequencyType Type { get; set; }
 
     public int TimesPerPeriod { get; set; }
 }

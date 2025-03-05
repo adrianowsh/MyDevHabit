@@ -162,3 +162,4 @@ dotnet_style_prefer_auto_properties = true:warning
 dotnet_style_object_initializer = true:error
 dotnet_style_predefined_type_for_locals_parameters_members = true:error
 dotnet_diagnostic.CA1062.severity = suggestion
+dotnet_diagnostic.CA2007.severity = suggestion

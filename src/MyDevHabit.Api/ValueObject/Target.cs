@@ -1,7 +1,7 @@
 ﻿namespace MyDevHabit.Api.ValueObject;
 
 
-internal sealed class Target
+public sealed class Target
 {
     public int Value { get; set; }
 

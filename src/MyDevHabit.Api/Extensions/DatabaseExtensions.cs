@@ -13,7 +13,7 @@ internal static class DatabaseExtensions
 
         try
         {
-            await context.Database.MigrateAsync().ConfigureAwait(false);
+            await context.Database.MigrateAsync();
 
             app.Logger.LogInformation("Database migrations applied successfully.");
         }
