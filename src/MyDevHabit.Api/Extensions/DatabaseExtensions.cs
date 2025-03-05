@@ -17,7 +17,7 @@ internal static class DatabaseExtensions
 
             app.Logger.LogInformation("Database migrations applied successfully.");
         }
-        catch (Exception e)
+        catch
         {
 
             app.Logger.LogInformation("Database migrations applied successfully.");
