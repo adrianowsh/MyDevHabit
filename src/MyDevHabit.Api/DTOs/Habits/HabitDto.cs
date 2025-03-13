@@ -1,6 +1,6 @@
 ﻿using MyDevHabit.Api.Enums;
 
-namespace MyDevHabit.Api.DTOs;
+namespace MyDevHabit.Api.DTOs.Habits;
 
 public sealed record HabitsCollectionDto
 {
