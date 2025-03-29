@@ -1,6 +1,6 @@
 ﻿using MyDevHabit.Api.Enums;
 
-namespace MyDevHabit.Api.Entities;
+namespace MyDevHabit.Api.ValueObject;
 
 public sealed class Frequency
 {

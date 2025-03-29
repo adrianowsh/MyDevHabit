@@ -13,7 +13,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(options =>
 {
     options.ReturnHttpNotAcceptable = true;
-});
+})
+.AddNewtonsoftJson()
+.AddXmlSerializerFormatters(); // add support to xml content negociation
 
 
 builder.Services.AddControllers();

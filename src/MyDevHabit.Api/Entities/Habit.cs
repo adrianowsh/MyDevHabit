@@ -18,6 +18,8 @@ public sealed class Habit
     public DateTime? UpdatedAtUtc { get; set; }
     public DateTime? LastCompletedAtUtc { get; set; }
     public HabitStatus Status { get; set; }
+    public List<HabitTag> HabitTags { get; set; } = [];
+    public ICollection<Tag> Tags { get; set; } = [];
 }
 
 

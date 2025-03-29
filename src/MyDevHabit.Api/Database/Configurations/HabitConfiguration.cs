@@ -25,5 +25,12 @@ internal sealed class HabitConfiguration : IEntityTypeConfiguration<Habit>
         });
 
         builder.OwnsOne(x => x.Milestone);
+
+        builder.HasMany(h => h.Tags)
+            .WithMany()
+            .UsingEntity<HabitTag>(
+                j => j.HasOne<Tag>().WithMany().HasForeignKey(x => x.TagId),
+                j => j.HasOne<Habit>().WithMany().HasForeignKey(x => x.HabitId)
+            );
     }
 }

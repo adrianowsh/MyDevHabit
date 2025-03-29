@@ -17,9 +17,9 @@ services:
   
   mydevhabit.db:
     image: postgres:latest
-    container_name: MyBookify.Db
+    container_name: MyDevHabit.Db
     environment:
-      - POSTGRES_DB=mybookify
+      - POSTGRES_DB=mydevhabit
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
