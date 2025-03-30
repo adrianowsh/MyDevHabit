@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MyDevHabit.Api.Database;
 using MyDevHabit.Api.Extensions;
+using MyDevHabit.Api.Middleware;
 using Npgsql;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
@@ -29,6 +30,8 @@ builder.Services.AddProblemDetails(options =>
     };
 });
 
+builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddControllers();
 
@@ -70,6 +73,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
 
 app.MapControllers();
 

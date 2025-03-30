@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using FluentValidation;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -60,7 +60,7 @@ public sealed class TagsController : ControllerBase
         IValidator<CreateTagDto> validator,
         ProblemDetailsFactory problemDetailsFactory)
     {
-        FluentValidation.Results.ValidationResult validationResul = await validator.ValidateAsync(createtagDto);
+        ValidationResult validationResul = await validator.ValidateAsync(createtagDto);
 
         if (!validationResul.IsValid)
         {
