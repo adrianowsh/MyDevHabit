@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using MyDevHabit.Api.Database;
 using MyDevHabit.Api.DTOs.Habits;
 using MyDevHabit.Api.Entities;
+using MyDevHabit.Api.Enums;
 
 namespace MyDevHabit.Api.Controllers;
 
@@ -14,10 +15,17 @@ namespace MyDevHabit.Api.Controllers;
 public sealed class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<HabitsCollectionDto>> GetHabits()
+    public async Task<ActionResult<HabitsCollectionDto>> GetHabits([FromQuery] HabitQueryParameters query)
     {
-        List<HabitDto> habits = await dbContext
-            .Habits
+
+        query.Search ??= query.Search?.Trim().ToLowerInvariant();
+
+        List<HabitDto> habits = await dbContext.Habits.AsNoTracking()
+            .Where(p => query.Search == null ||
+                        p.Name.Contains(query.Search) ||
+                        p.Description != null && p.Description.Contains(query.Search))
+            .Where(p => query.Type == null || p.Type == query.Type)
+            .Where(p => query.Status == null || p.Status == query.Status)
             .Select(HabitQueries.ProjectToDto())
             .ToListAsync();
 
