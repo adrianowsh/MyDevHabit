@@ -2,8 +2,11 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MyDevHabit.Api.Database;
+using MyDevHabit.Api.DTOs.Habits;
+using MyDevHabit.Api.Entities;
 using MyDevHabit.Api.Extensions;
 using MyDevHabit.Api.Middleware;
+using MyDevHabit.Api.Services.Sorting;
 using Npgsql;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
@@ -62,6 +65,12 @@ builder.Logging.AddOpenTelemetry(options =>
     options.IncludeScopes = true;
     options.IncludeFormattedMessage = true;
 });
+
+
+builder.Services.AddTransient<SortMappingProvider>();
+
+builder.Services.AddSingleton<ISortMappingDefinition, SortMappingDefinition<HabitDto, Habit>>(
+    _ => HabitMappings.SortMappingDefinition);
 
 WebApplication app = builder.Build();
 

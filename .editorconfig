@@ -79,6 +79,8 @@ dotnet_diagnostic.CA1515.severity = suggestion
 # CS8600: Converting null literal or possible null value to non-nullable type.
 dotnet_diagnostic.CS8600.severity = suggestion
 dotnet_diagnostic.S6964.severity = suggestion
+dotnet_diagnostic.S125.severity = suggestion
+dotnet_diagnostic.S2326.severity = suggestion
 
 [*.{cs,vb}]
 dotnet_style_prefer_simplified_boolean_expressions = true:suggestion

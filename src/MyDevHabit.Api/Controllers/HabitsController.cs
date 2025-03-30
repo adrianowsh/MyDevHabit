@@ -1,12 +1,12 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
+﻿using System.Linq.Dynamic.Core;
+using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyDevHabit.Api.Database;
 using MyDevHabit.Api.DTOs.Habits;
 using MyDevHabit.Api.Entities;
-using MyDevHabit.Api.Enums;
+using MyDevHabit.Api.Services.Sorting;
 
 namespace MyDevHabit.Api.Controllers;
 
@@ -15,17 +15,39 @@ namespace MyDevHabit.Api.Controllers;
 public sealed class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<HabitsCollectionDto>> GetHabits([FromQuery] HabitQueryParameters query)
+    public async Task<ActionResult<HabitsCollectionDto>> GetHabits(
+        [FromQuery] HabitQueryParameters query,
+        SortMappingProvider sortMappingProvider)
     {
 
         query.Search ??= query.Search?.Trim().ToLowerInvariant();
+
+        if (!sortMappingProvider.Validatemappings<HabitDto, Habit>(query.Sort))
+        {
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: $"The provided sort parameter ins't valid: '{query.Sort}'");
+        }
+
+        //Expression<Func<Habit, object>> orderBy = query.Sort switch
+        //{
+        //    "name" => p => p.Name,
+        //    "description" => p => p.Description ?? string.Empty,
+        //    "type" => p => p.Type,
+        //    "status" => p => p.Status,
+        //    _ => p => p.Name
+        //};
+
+        SortMapping[] sortMappings = sortMappingProvider.GetMappings<HabitDto, Habit>();
 
         List<HabitDto> habits = await dbContext.Habits.AsNoTracking()
             .Where(p => query.Search == null ||
                         p.Name.Contains(query.Search) ||
                         p.Description != null && p.Description.Contains(query.Search))
             .Where(p => query.Type == null || p.Type == query.Type)
+            //.OrderBy("Name ASC, Description DESC, EndDate DESC")
             .Where(p => query.Status == null || p.Status == query.Status)
+            .ApplySort(query.Sort, sortMappings)
             .Select(HabitQueries.ProjectToDto())
             .ToListAsync();
 
@@ -109,7 +131,7 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         }
 
         habit.Name = habitDto.Name;
-        habit.Description = habitDto.Description;
+        habit.Description = habitDto.Description ?? string.Empty;
         habit.UpdatedAtUtc = DateTime.UtcNow;
 
         await dbContext.SaveChangesAsync();
