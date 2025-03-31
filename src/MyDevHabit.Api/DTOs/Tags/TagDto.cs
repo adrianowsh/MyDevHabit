@@ -1,9 +1,12 @@
-﻿namespace MyDevHabit.Api.DTOs.Tags;
+﻿using MyDevHabit.Api.DTOs.Common;
+
+namespace MyDevHabit.Api.DTOs.Tags;
 
 
-public sealed record TagsCollectionDto
+public sealed record TagsCollectionDto : ICollectioResponse<TagDto>
 {
     public required IReadOnlyCollection<TagDto> Data { get; init; }
+    public IList<TagDto> Items { get; init; } = [];
 }
 
 public sealed record TagDto

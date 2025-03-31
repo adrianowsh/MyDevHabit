@@ -179,3 +179,4 @@ dotnet_style_prefer_compound_assignment = true:error
 dotnet_diagnostic.CA2227.severity = suggestion
 dotnet_diagnostic.CA1002.severity = suggestion
 dotnet_diagnostic.CA1308.severity = suggestion
+dotnet_diagnostic.CA1000.severity = suggestion

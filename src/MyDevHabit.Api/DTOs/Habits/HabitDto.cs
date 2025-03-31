@@ -1,15 +1,13 @@
-﻿using MyDevHabit.Api.Enums;
-using Newtonsoft.Json;
+﻿using MyDevHabit.Api.DTOs.Common;
+using MyDevHabit.Api.Enums;
 
 namespace MyDevHabit.Api.DTOs.Habits;
 
-public sealed record HabitsCollectionDto
+public sealed record HabitsCollectionDto : ICollectioResponse<HabitDto>
 {
     public required IReadOnlyCollection<HabitDto> Data { get; init; }
+    public IList<HabitDto> Items { get; init; } = [];
 }
-
-
-
 
 public sealed record HabitDto
 {
@@ -28,7 +26,6 @@ public sealed record HabitDto
     public DateTime? LastCompletedAtUtc { get; init; }
 
 }
-
 
 public sealed record FrequencyDto
 {
