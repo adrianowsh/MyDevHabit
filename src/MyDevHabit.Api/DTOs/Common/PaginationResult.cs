@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Dynamic;
+using Microsoft.EntityFrameworkCore;
 using MyDevHabit.Api.DTOs.Habits;
 
 namespace MyDevHabit.Api.DTOs.Common;
 
-public sealed record PaginationResult<T> : ICollectioResponse<HabitDto>
+public sealed record PaginationResult<T> : ICollectionResponse<T>
 {
-    public IList<HabitDto> Items { get; init; } = [];
+    public IList<T> Items { get; init; } = [];
     public int Page { get; init; }
     public int PageSize { get; init; }
     public int TotalCount { get; init; }
@@ -23,9 +24,10 @@ public sealed record PaginationResult<T> : ICollectioResponse<HabitDto>
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
+
         return new PaginationResult<T>
         {
-            Items = (IList<HabitDto>)items,
+            Items = items,
             Page = page,
             PageSize = pageSize,
             TotalCount = totalCount

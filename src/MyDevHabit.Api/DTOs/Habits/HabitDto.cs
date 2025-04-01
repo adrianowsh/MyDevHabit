@@ -3,7 +3,7 @@ using MyDevHabit.Api.Enums;
 
 namespace MyDevHabit.Api.DTOs.Habits;
 
-public sealed record HabitsCollectionDto : ICollectioResponse<HabitDto>
+public sealed record HabitsCollectionDto : ICollectionResponse<HabitDto>
 {
     public required IReadOnlyCollection<HabitDto> Data { get; init; }
     public IList<HabitDto> Items { get; init; } = [];

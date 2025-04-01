@@ -1,6 +1,6 @@
 ﻿namespace MyDevHabit.Api.DTOs.Common;
 
-public interface ICollectioResponse<T>
+public interface ICollectionResponse<T>
 {
     IList<T> Items { get; init; }
 }

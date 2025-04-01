@@ -6,7 +6,9 @@ using MyDevHabit.Api.DTOs.Habits;
 using MyDevHabit.Api.Entities;
 using MyDevHabit.Api.Extensions;
 using MyDevHabit.Api.Middleware;
+using MyDevHabit.Api.Services;
 using MyDevHabit.Api.Services.Sorting;
+using Newtonsoft.Json.Serialization;
 using Npgsql;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
@@ -19,8 +21,8 @@ builder.Services.AddControllers(options =>
 {
     options.ReturnHttpNotAcceptable = true;
 })
-.AddNewtonsoftJson()
-.AddXmlSerializerFormatters(); // add support to xml content negociation
+.AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
+.AddXmlSerializerFormatters(); // add support to xml content negotiation
 
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>(includeInternalTypes: true);
@@ -71,6 +73,8 @@ builder.Services.AddTransient<SortMappingProvider>();
 
 builder.Services.AddSingleton<ISortMappingDefinition, SortMappingDefinition<HabitDto, Habit>>(
     _ => HabitMappings.SortMappingDefinition);
+
+builder.Services.AddTransient<DataShapeService>();
 
 WebApplication app = builder.Build();
 
