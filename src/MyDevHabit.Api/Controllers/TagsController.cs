@@ -1,26 +1,30 @@
-﻿using FluentValidation;
+﻿using System.Net.Mime;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using MyDevHabit.Api.Database;
+using MyDevHabit.Api.DTOs.Common;
 using MyDevHabit.Api.DTOs.Habits;
 using MyDevHabit.Api.DTOs.Tags;
 using MyDevHabit.Api.Entities;
+using MyDevHabit.Api.Services;
 
 namespace MyDevHabit.Api.Controllers;
 
 [ApiController]
 [Route("tags")]
-public sealed class TagsController : ControllerBase
+//[Produces(
+// MediaTypeNames.Application.Json,
+// CustomMediaTypeNames.Application.JsonV1,
+// CustomMediaTypeNames.Application.HateoasJson,
+// CustomMediaTypeNames.Application.HateoasJsonV1)]
+
+public sealed class TagsController(
+    ApplicationDbContext dbContext,
+    LinkService linkService) : ControllerBase
 {
-    private readonly ApplicationDbContext dbContext;
-
-    public TagsController(ApplicationDbContext dbContext)
-    {
-        this.dbContext = dbContext;
-    }
-
     [HttpGet]
     public async Task<ActionResult<TagsCollectionDto>> GetTags()
     {
@@ -38,9 +42,9 @@ public sealed class TagsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<TagDto>> GetTag(string id)
+    public async Task<ActionResult<TagDto>> GetTag(string id, [FromHeader] AcceptHeaderDto acceptHeader)
     {
-        TagDto tag = await dbContext
+        TagDto? tag = await dbContext
             .Tags
             .Where(tag => tag.Id == id)
             .Select(TagQueries.ProjectToDto())
@@ -51,6 +55,10 @@ public sealed class TagsController : ControllerBase
             return NotFound();
         }
 
+        if (acceptHeader.IncludeLinks)
+        {
+            tag.Links = CreateLinksForTag(id);
+        }
         return Ok(tag);
     }
 
@@ -126,5 +134,19 @@ public sealed class TagsController : ControllerBase
         await dbContext.SaveChangesAsync();
 
         return NoContent();
+    }
+
+
+    private List<LinkDto> CreateLinksForTag(string id)
+    {
+        List<LinkDto> links =
+        [
+            linkService.Create(nameof(GetTag), "self", HttpMethods.Get, new { id }),
+            linkService.Create(nameof(UpdateTag), "update", HttpMethods.Put, new { id }),
+            linkService.Create(nameof(DeleteTag), "delete", HttpMethods.Delete, new { id }),
+
+        ];
+
+        return links;
     }
 }

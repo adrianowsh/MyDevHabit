@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyDevHabit.Api.DTOs.Common;
 using MyDevHabit.Api.Enums;
 
 namespace MyDevHabit.Api.DTOs.Habits;
 
-public sealed record HabitQueryParameters
+public sealed record HabitsQueryParameters : AcceptHeaderDto
 {
     [FromQuery(Name = "q")]
     public string? Search { get; set; }
@@ -13,4 +14,10 @@ public sealed record HabitQueryParameters
     public int Page { get; init; } = 1;
     public string? Fields { get; init; }
     public int PageSize { get; init; } = 10;
+}
+
+
+public sealed record HabitQueryParameters : AcceptHeaderDto
+{
+    public string? Fields { get; set; }
 }

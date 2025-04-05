@@ -7,6 +7,7 @@ await builder.AddControllers()
              .AddDatabase()
              .AddObservability()
              .AddApplicationServices()
+             .AddAuthenticationServices()
              .Build()
              .ConfigureApplication()
              .RunAsync();
